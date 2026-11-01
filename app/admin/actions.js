@@ -45,6 +45,52 @@ export async function keluar() {
   redirect("/admin/login");
 }
 
+export async function gantiPassword(prevState, formData) {
+  const data = formData instanceof FormData ? formData : prevState;
+
+  const passwordBaru = data?.get("password_baru")?.toString() || "";
+  const konfirmasi = data?.get("konfirmasi_password")?.toString() || "";
+
+  // 1. Periksa sesi admin di server
+  const supabase = await createSessionClient();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return {
+      error: "Sesi Anda telah berakhir atau belum login. Silakan masuk kembali.",
+    };
+  }
+
+  // 2. Validasi di server
+  if (!passwordBaru || !konfirmasi) {
+    return { error: "Password baru dan konfirmasi password wajib diisi." };
+  }
+
+  if (passwordBaru.length < 8) {
+    return { error: "Password baru minimal 8 karakter." };
+  }
+
+  if (passwordBaru !== konfirmasi) {
+    return { error: "Password baru dan konfirmasi password tidak sama." };
+  }
+
+  // 3. Update password admin dengan Supabase Auth
+  const { error: updateError } = await supabase.auth.updateUser({
+    password: passwordBaru,
+  });
+
+  if (updateError) {
+    return {
+      error: updateError.message || "Gagal mengganti password. Silakan coba lagi.",
+    };
+  }
+
+  return { success: "Password berhasil diganti." };
+}
+
 export const login = masuk;
 export const logout = keluar;
-
+export const ubahPassword = gantiPassword;

@@ -1,11 +1,14 @@
+"use client";
+
+import { useActionState } from "react";
 import NavAdmin from "@/components/NavAdmin";
 import Input from "@/components/Input";
 import Tombol from "@/components/Tombol";
-import CatatanBelumAktif from "@/components/CatatanBelumAktif";
+import { gantiPassword } from "@/app/admin/actions";
 
-// US-05: form ganti password belum berfungsi.
-// Tugas peserta: admin yang sudah login bisa mengganti password-nya, diproses di server.
 export default function HalamanGantiPassword() {
+  const [state, formAction] = useActionState(gantiPassword, null);
+
   return (
     <div className="flex flex-col gap-6 py-8">
       <NavAdmin />
@@ -15,7 +18,20 @@ export default function HalamanGantiPassword() {
           Ganti password bawaan segera setelah pertama kali masuk. Minimal 8 karakter.
         </p>
       </div>
-      <form className="flex max-w-sm flex-col gap-4">
+
+      {state?.error && (
+        <p className="max-w-sm rounded-lg border border-garis bg-permukaan p-3 text-sm text-bahaya">
+          {state.error}
+        </p>
+      )}
+
+      {state?.success && (
+        <p className="max-w-sm rounded-lg border border-garis bg-permukaan p-3 text-sm font-medium text-utama">
+          {state.success}
+        </p>
+      )}
+
+      <form action={formAction} className="flex max-w-sm flex-col gap-4">
         <Input
           label="Password baru"
           name="password_baru"
@@ -36,7 +52,6 @@ export default function HalamanGantiPassword() {
           Simpan password
         </Tombol>
       </form>
-      <CatatanBelumAktif>Ganti password belum berfungsi: lihat US-05.</CatatanBelumAktif>
     </div>
   );
 }
