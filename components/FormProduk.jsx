@@ -1,11 +1,22 @@
+"use client";
+
+import { useActionState } from "react";
 import Input from "@/components/Input";
 import Tombol from "@/components/Tombol";
 
 // Dipakai untuk tambah produk (US-08) dan ubah produk (US-09). Keduanya bonus di jalur offline.
 // Nama field sama dengan kolom tabel "produk".
-export default function FormProduk({ produk = {}, labelTombol }) {
+export default function FormProduk({ produk = {}, labelTombol, action }) {
+  const [state, formAction] = useActionState(action || (() => {}), null);
+
   return (
-    <form className="flex max-w-xl flex-col gap-4">
+    <form action={action ? formAction : undefined} className="flex max-w-xl flex-col gap-4">
+      {produk.id && <input type="hidden" name="id" defaultValue={produk.id} />}
+      {state?.error && (
+        <p className="rounded-lg border border-garis bg-permukaan p-3 text-sm text-bahaya">
+          {state.error}
+        </p>
+      )}
       <Input label="Nama produk" name="nama" defaultValue={produk.nama} required />
       <Input
         label="Harga (Rp)"

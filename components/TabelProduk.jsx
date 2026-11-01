@@ -1,7 +1,17 @@
+"use client";
+
 import { formatRupiah } from "@/lib/format";
 import Tombol from "@/components/Tombol";
+import { hapusProduk } from "@/app/admin/actions";
 
 export default function TabelProduk({ daftarProduk = [] }) {
+  const handleHapus = (e, nama) => {
+    const konfirmasi = window.confirm(`Apakah Anda yakin ingin menghapus produk "${nama}"?`);
+    if (!konfirmasi) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="overflow-x-auto rounded-2xl border border-garis">
       <table className="w-full min-w-[560px] text-left text-sm">
@@ -39,9 +49,12 @@ export default function TabelProduk({ daftarProduk = [] }) {
                     <Tombol href={`/admin/produk/${produk.id}/ubah`} varian="garis">
                       Ubah
                     </Tombol>
-                    <Tombol type="button" varian="bahaya">
-                      Hapus
-                    </Tombol>
+                    <form action={hapusProduk} onSubmit={(e) => handleHapus(e, produk.nama)}>
+                      <input type="hidden" name="id" value={produk.id} />
+                      <Tombol type="submit" varian="bahaya">
+                        Hapus
+                      </Tombol>
+                    </form>
                   </div>
                 </td>
               </tr>
