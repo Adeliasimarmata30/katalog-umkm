@@ -12,7 +12,10 @@ export default async function Header() {
         <Link href="/" className="text-lg font-extrabold tracking-tight text-utama">
           {toko.nama}
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <Link href="/#produk" className="text-sm font-semibold hover:text-utama">
+            Tanya AI
+          </Link>
           <Link href="/favorit" className="text-sm font-semibold hover:text-utama">
             Favorit
           </Link>

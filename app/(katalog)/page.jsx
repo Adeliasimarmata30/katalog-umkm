@@ -119,11 +119,16 @@ export default async function HalamanKatalog({ searchParams }) {
         <p className="mt-4 text-sm text-teks-lembut">{toko.jamBuka}</p>
       </section>
 
-      <section aria-labelledby="judul-produk" className="flex flex-col gap-6">
+      <section id="produk" aria-labelledby="judul-produk" className="flex scroll-mt-4 flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <h2 id="judul-produk" className="text-xl font-bold">
-            Produk kami
-          </h2>
+          <div>
+            <h2 id="judul-produk" className="text-xl font-bold">
+              Produk kami
+            </h2>
+            <p className="mt-1 text-sm text-teks-lembut">
+              Punya pertanyaan? Pilih Tanya AI pada produk yang kamu minati.
+            </p>
+          </div>
           <FilterKatalog
             kategoriTersedia={kategoriTersedia}
             kategoriAktif={kategoriAktif}

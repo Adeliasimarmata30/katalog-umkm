@@ -10,9 +10,9 @@ export default function TanyaProduk({ produkId }) {
   const [state, formAction] = useActionState(tanyaProduk, null);
 
   return (
-    <section aria-labelledby="judul-tanya" className="flex max-w-xl flex-col gap-3 py-4">
+    <section id="tanya-ai" aria-labelledby="judul-tanya" className="flex max-w-xl scroll-mt-4 flex-col gap-3 py-4">
       <h2 id="judul-tanya" className="text-xl font-bold">
-        Tanya tentang produk ini
+        Tanya AI tentang produk ini
       </h2>
       <form key={state?.pertanyaan ?? ""} action={formAction} className="flex flex-col gap-3">
         <input type="hidden" name="produk_id" value={produkId} />

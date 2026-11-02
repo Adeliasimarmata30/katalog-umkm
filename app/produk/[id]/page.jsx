@@ -5,6 +5,7 @@ import CatatTerakhirDilihat from "@/components/CatatTerakhirDilihat";
 import GaleriProduk from "@/components/GaleriProduk";
 import KartuProduk from "@/components/KartuProduk";
 import TanyaProduk from "@/components/TanyaProduk";
+import Tombol from "@/components/Tombol";
 import TombolBagikan from "@/components/TombolBagikan";
 import TombolBandingkan from "@/components/TombolBandingkan";
 import TombolFavorit from "@/components/TombolFavorit";
@@ -164,6 +165,9 @@ export default async function HalamanDetailProduk({ params }) {
         <HargaProduk produk={produk} besar />
         <p className="max-w-prose leading-relaxed text-teks-lembut">{produk.deskripsi}</p>
         <TombolWhatsApp produk={produk} nomorWhatsApp={toko.nomorWhatsApp} daftarVarian={daftarVarian} />
+        <Tombol href="#tanya-ai" varian="garis" className="self-start">
+          Tanya AI
+        </Tombol>
         <TombolBagikan judul={produk.nama} />
         <TombolBandingkan produkId={produk.id} />
       </div>
