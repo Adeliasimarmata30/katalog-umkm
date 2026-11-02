@@ -28,6 +28,8 @@ Browser tidak pernah berhubungan langsung dengan Supabase. Alamat proyek dan kun
 
 Kunci rahasia melewati semua aturan RLS, jadi hanya dipakai untuk membaca data publik. Aksi yang mengubah data memakai koneksi sesi admin, sehingga RLS tetap berlaku.
 
+Dua pengecualian yang disetujui pemilik proyek: ulasan (US-38) dan catatan klik WhatsApp (US-40) ditulis pengunjung yang tidak login, jadi server menulisnya memakai kunci rahasia setelah memvalidasi isinya. Foto unggahan (US-29) juga dibaca lewat server di rute `/foto`, supaya browser tetap tidak berhubungan langsung dengan Supabase.
+
 ## Struktur folder
 
 ```
@@ -43,7 +45,6 @@ app/
 components/                 komponen tampilan (lihat DESIGN.md)
 lib/
   toko.js                   identitas toko dan nomor WhatsApp
-  data-contoh.js            data contoh sebelum terhubung database
   format.js                 format rupiah
 docs/                       dokumen proyek
 ```

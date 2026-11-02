@@ -8,6 +8,7 @@ export default function FilterKatalog({
   kategoriTersedia = [],
   kategoriAktif = "",
   kataKunci = "",
+  urutAktif = "",
 }) {
   const router = useRouter();
   const [cari, setCari] = useState(kataKunci);
@@ -16,17 +17,24 @@ export default function FilterKatalog({
     setCari(kataKunci);
   }, [kataKunci]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const bukaKatalog = (teksCari, urut) => {
     const params = new URLSearchParams();
     if (kategoriAktif && kategoriAktif !== "Semua") {
       params.set("kategori", kategoriAktif);
     }
-    if (cari.trim()) {
-      params.set("cari", cari.trim());
+    if (teksCari) {
+      params.set("cari", teksCari);
+    }
+    if (urut) {
+      params.set("urut", urut);
     }
     const query = params.toString();
     router.push(query ? `/?${query}` : "/");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    bukaKatalog(cari.trim(), urutAktif);
   };
 
   const handleReset = () => {
@@ -50,6 +58,7 @@ export default function FilterKatalog({
         {kategoriAktif && kategoriAktif !== "Semua" && (
           <input type="hidden" name="kategori" value={kategoriAktif} />
         )}
+        {urutAktif && <input type="hidden" name="urut" value={urutAktif} />}
         <div className="relative flex-1">
           <input
             type="text"
@@ -79,6 +88,22 @@ export default function FilterKatalog({
         </div>
       </form>
 
+      {/* US-15: urutan produk */}
+      <label className="flex items-center gap-2 self-start text-sm font-semibold">
+        Urutkan
+        <select
+          aria-label="Urutkan produk"
+          value={urutAktif}
+          onChange={(e) => bukaKatalog(kataKunci, e.target.value)}
+          className="rounded-lg border border-garis bg-latar px-3 py-2 text-sm text-teks focus:border-utama focus:outline-none"
+        >
+          <option value="">Pilihan toko</option>
+          <option value="termurah">Termurah</option>
+          <option value="termahal">Termahal</option>
+          <option value="terbaru">Terbaru</option>
+        </select>
+      </label>
+
       {/* Filter Kategori */}
       {kategoriTersedia.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">
@@ -94,6 +119,9 @@ export default function FilterKatalog({
             }
             if (kataKunci) {
               params.set("cari", kataKunci);
+            }
+            if (urutAktif) {
+              params.set("urut", urutAktif);
             }
             const query = params.toString();
             const href = query ? `/?${query}` : "/";

@@ -37,7 +37,7 @@ Sebelum mengerjakan fitur, baca:
 
 ## Data
 
-Tabel `produk` dengan kolom: `id`, `nama`, `harga`, `deskripsi`, `foto_url`, `kategori`, `created_at`. Jangan mengganti nama kolom. Data contoh di `lib/data-contoh.js` memakai nama kolom yang sama dan tidak dipakai lagi setelah halaman terhubung ke database.
+Tabel `produk` dengan kolom: `id`, `nama`, `harga`, `deskripsi`, `foto_url`, `kategori`, `created_at`. Jangan mengganti nama kolom.
 
 Identitas toko (nama, nomor WhatsApp, alamat, jam buka) ada di `lib/toko.js`.
 

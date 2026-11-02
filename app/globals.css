@@ -22,6 +22,32 @@
   --color-bahaya: #b42318;
 }
 
+/* US-25: mode gelap. Atribut data-tema dipasang di layout dan tombol tema. */
+html[data-tema="dark"] {
+  color-scheme: dark;
+
+  --color-latar: #121816;
+  --color-permukaan: #1c2421;
+  --color-garis: #36443e;
+  --color-teks: #e8efeb;
+  --color-teks-lembut: #a9b8b0;
+
+  --color-utama: #1c7354;
+  --color-utama-gelap: #15573f;
+
+  --color-harga: #ffd68a;
+  --color-harga-latar: #3a2c10;
+
+  --color-bahaya: #ff9c8f;
+}
+
+/* Warna utama dipakai sebagai latar tombol berteks putih, jadi teks hijau perlu warna lebih terang. */
+html[data-tema="dark"] .text-utama,
+html[data-tema="dark"] .hover\:text-utama:hover,
+html[data-tema="dark"] .group:hover .group-hover\:text-utama {
+  color: #74dcb4;
+}
+
 html {
   color: var(--color-teks);
   background: var(--color-latar);
